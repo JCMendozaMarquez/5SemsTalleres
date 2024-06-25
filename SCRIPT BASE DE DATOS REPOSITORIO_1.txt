@@ -1,0 +1,43 @@
+-- Creación de la base de datos
+CREATE DATABASE REPOSITORIO;
+
+-- Selección de la base de datos
+USE REPOSITORIO;
+
+-- Creación de la tabla Rol
+CREATE TABLE Rol (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL
+);
+
+-- Creación de la tabla Categoria
+CREATE TABLE Categoria (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL
+);
+
+-- Creación de la tabla Usuario
+CREATE TABLE Usuario (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  idrol INT,
+  usuario VARCHAR(50) NOT NULL,
+  contraseña VARCHAR(100) NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  apellidopaterno VARCHAR(100) NOT NULL,
+  apellidomaterno VARCHAR(100) NOT NULL,
+  FOREIGN KEY (idrol) REFERENCES Rol(id)
+);
+
+-- Creación de la tabla Documento
+CREATE TABLE Documento (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  tipo VARCHAR(50) NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  descrip_larg TEXT,
+  descrip_cort VARCHAR(255),
+  ruta VARCHAR(255) NOT NULL,
+  idcategoria INT,
+  fecharegistro DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (idcategoria) REFERENCES Categoria(id)
+);
+
